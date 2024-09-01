@@ -37,7 +37,7 @@ function loginUserMessage(username = "sam"){
 // console.log(loginUserMessage()) 
 
 
-// If we does not know any mapy parameter are give in function
+// If we does not know any many parameter are give in function
 // ... (REST Operator)
 function calculateCartPrice(...num1){
     return num1;
