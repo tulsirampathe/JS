@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input {
+            margin: 10px;
+        }
+
+        .card {
+            margin: 20px;
+            background-color: rgb(166, 167, 177);
+            min-width: 400px;
+            min-height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            font-weight: bold;
+        }
+
+        a,
+        h1 {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body style="background-color: #212121;">
+    <!-- <p>
+        0 UNSENT Client has been created. open() not called yet.
+        1 OPENED open() has been called.
+        2 HEADERS_RECEIVED send() has been called, and headers and status are available.
+        3 LOADING Downloading; responseText holds partial data.
+        4 DONE The operation is complete.
+    </p> -->
+
+    <input id="username" type="text" placeholder="Enter the github username">
+    <button id="btn">Click</button>
+
+    <div class="card">
+        <img src="" alt="" class="img">
+        <h1 class="name"></h1>
+        <a href="" target="_blank"></a>
+    </div>
+</body>
+
+<script>
+    const btn = document.querySelector('#btn')
+    const img = document.querySelector('.img')
+    const name = document.querySelector('.name')
+    const url = document.querySelector('a')
+
+    const username = document.querySelector('#username')
+
+    btn.addEventListener('click', () => {
+        const requestUrl = `https:api.github.com/users/${username.value}`
+        console.log(requestUrl);
+
+        const xhr = new XMLHttpRequest()
+
+        xhr.open('GET', requestUrl)
+
+        xhr.onreadystatechange = function () {
+            console.log(xhr.readyState);
+            if (xhr.readyState === 4) {
+                const data = JSON.parse(this.responseText)
+                console.log(typeof data);
+                console.log(data);
+
+                if (data.message === "Not Found") {
+                    name.innerHTML = "User Not Found"
+                } else {
+                    img.src = data.avatar_url
+                    name.innerHTML = `Name : ${data.name}`
+                    url.innerHTML = "Github Url"
+                    url.href = data.url
+                }
+            }
+        }
+
+        xhr.send();
+    })
+
+</script>
+
+</html>
