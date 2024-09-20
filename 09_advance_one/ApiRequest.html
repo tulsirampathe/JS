@@ -78,12 +78,14 @@
                 console.log(data);
 
                 if (data.message === "Not Found") {
+                    img.src = ""
                     name.innerHTML = "User Not Found"
+                    url.innerHTML = ""
                 } else {
                     img.src = data.avatar_url
                     name.innerHTML = `Name : ${data.name}`
                     url.innerHTML = "Github Url"
-                    url.href = data.url
+                    url.href = data.html_url
                 }
             }
         }
